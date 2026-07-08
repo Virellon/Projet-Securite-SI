@@ -47,24 +47,6 @@ def check_ssh_config():
     except PermissionError:
         print("[!] Erreur de permission : Exécutez le script en tant que root.")
 
-
-def check_cron_jobs():
-    print_header("VÉRIFICATION DES TÂCHES PLANIFIÉES (CRON)")
-    print("[*] Analyse des répertoires de tâches planifiées...")
-
-    suspicious_found = False
-
-    if os.path.exists("/etc/crontab"):
-        with open("/etc/crontab", "r") as f:
-            content = f.read()
-            if any(cmd in content for cmd in ("curl", "wget", "sh", "bash")):
-                print("[ALERTE] Commande suspecte détectée dans /etc/crontab")
-                suspicious_found = True
-
-    if not suspicious_found:
-        print("[OK] Aucun indicateur de webshell/reverse shell évident dans les crons principaux.")
-
-
 def check_firewall():
     print_header("VÉRIFICATION DU PARE-FEU (UFW / IPTABLES)")
 
@@ -121,5 +103,4 @@ if __name__ == "__main__":
     check_ssh_config()
     check_firewall()
     check_critical_permissions()
-    check_cron_jobs()
     print_header("FIN DE L'AUDIT")
