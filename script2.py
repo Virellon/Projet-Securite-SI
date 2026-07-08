@@ -16,7 +16,7 @@ def check_password_auth():
 
 def check_PubkeyAuthentication(): 
     conf = run("car /etc/ssh/sshd_config")
-    ok = re.search(r"PubkeyAuthentification\s+no", conf , re.MULTILINE) is not None
+    ok = re.search(r"^PubkeyAuthentification\s+no", conf , re.MULTILINE) is not None
     return "PubkeyAuthentication no", ok
 
 def check_ufw_active():
