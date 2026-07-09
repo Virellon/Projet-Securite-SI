@@ -14,10 +14,10 @@ def check_password_auth():
     ok = re.search(r"^PasswordAuthentication\s+no", conf, re.MULTILINE) is not None
     return "PasswordAuthentication no", ok
 
-def check_PubkeyAuthentication(): 
-    conf = run("car /etc/ssh/sshd_config")
-    ok = re.search(r"^PubkeyAuthentification\s+no", conf , re.MULTILINE) is not None
-    return "PubkeyAuthentication no", ok
+def check_PubkeyAuthentication():
+    conf = run("cat /etc/ssh/sshd_config")
+    ok = re.search(r"^PubkeyAuthentication\s+yes", conf , re.MULTILINE) is not None
+    return "PubkeyAuthentication yes", ok
 
 def check_ufw_active():
     status = run("ufw status")
@@ -74,4 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
- 
